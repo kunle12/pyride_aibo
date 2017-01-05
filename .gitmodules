@@ -1,0 +1,3 @@
+[submodule "libsrc/pyconnect"]
+	path = libsrc/pyconnect
+	url = https://github.com/kunle12/pyconnect_aibo

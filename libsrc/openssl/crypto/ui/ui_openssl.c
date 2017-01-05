@@ -123,7 +123,7 @@
 #endif
 
 #if !defined(_LIBC) && !defined(OPENSSL_SYS_MSDOS) && !defined(OPENSSL_SYS_VMS)
-# include <sys/ioctl.h>
+//# include <sys/ioctl.h>
 #endif
 
 #ifdef OPENSSL_SYS_MSDOS
@@ -165,7 +165,7 @@ static unsigned short channel = 0;
 static DWORD tty_orig, tty_new;
 #else
 # if !defined(OPENSSL_SYS_MSDOS) || defined(__DJGPP__)
-static TTY_STRUCT tty_orig, tty_new;
+//static TTY_STRUCT tty_orig, tty_new;
 # endif
 #endif
 static FILE *tty_in, *tty_out;
@@ -375,6 +375,7 @@ static int read_string_inner(UI *ui, UI_STRING *uis, int echo, int strip_nl)
     return ok;
 }
 
+#undef TTY_get
 /* Internal functions to open, handle and close a channel to the console.  */
 static int open_console(UI *ui)
 {
@@ -438,6 +439,9 @@ static int open_console(UI *ui)
 #endif
     return 1;
 }
+
+#undef TTY_FLAGS
+#undef TTY_set
 
 static int noecho_console(UI *ui)
 {

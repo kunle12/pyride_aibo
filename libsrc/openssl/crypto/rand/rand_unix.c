@@ -16,6 +16,7 @@
 #include "rand_lcl.h"
 
 #undef OPENSSL_SYS_LINUX
+#undef DEVRANDOM
 #if !(defined(OPENSSL_SYS_WINDOWS) || defined(OPENSSL_SYS_WIN32) || defined(OPENSSL_SYS_VMS) || defined(OPENSSL_SYS_VXWORKS) || defined(OPENSSL_SYS_UEFI))
 
 # include <sys/types.h>
@@ -88,7 +89,8 @@ int RAND_poll(void)
     RAND_add(&curr_pid, sizeof curr_pid, 1);
     curr_pid = 0;
 
-    curr_uid = getuid();
+    //curr_uid = getuid();
+    curr_uid = 1000; // dummy uid for OPEN-R
     RAND_add(&curr_uid, sizeof curr_uid, 1);
     curr_uid = 0;
 
@@ -298,7 +300,8 @@ int RAND_poll(void)
     /* put in some default random data, we need more than just this */
     l = curr_pid;
     RAND_add(&l, sizeof(l), 0.0);
-    l = getuid();
+    //l = getuid();
+    l = 1000; // dummy uid for OPEN-R
     RAND_add(&l, sizeof(l), 0.0);
 
     l = time(NULL);
